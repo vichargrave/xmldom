@@ -5,4 +5,5 @@ XML DOM Parser in C++
 
 Build
 =====
-To build the test application just cd to the xmldom directory then type "make".
+
+Build the test application by running 'make'.
