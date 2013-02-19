@@ -1,7 +1,7 @@
 xmldom
 ======
 
-XML DOM Parser in C++
+Example source code for the article 'XML Parsering With DOM in C++'
 
 Build
 =====
