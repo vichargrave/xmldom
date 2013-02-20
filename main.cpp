@@ -33,7 +33,7 @@ int main(int argc, char** argv)
     if (parser) {
         XmlDOMDocument* doc = new XmlDOMDocument(parser, "./bookstore.xml");
         if (doc) {
-            for (int i = 0; i < doc->getChildCount("book"); i++) {
+            for (int i = 0; i < doc->getElementCount("book"); i++) {
                 printf("Book %d\n", i+1);
                 value = doc->getAttributeValue("book", i, "category");
                 printf("book category - %s\n", value.c_str());

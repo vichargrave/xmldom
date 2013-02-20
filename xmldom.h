@@ -59,7 +59,7 @@ class XmlDOMDocument
 
     string getChildValue(const char* elementTag, int elementIndex, const char* fieldTag);
     string getAttributeValue(const char* elementTag,  int elementIndex, const char* attrTag);
-    int getChildCount(const char* elementName);
+    int getElementCount(const char* elementTag);
 
   private:
     XmlDOMDocument();

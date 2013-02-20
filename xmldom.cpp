@@ -115,8 +115,8 @@ string XmlDOMDocument::getAttributeValue(const char* elementTag,  int elementInd
 	return value;
 }
 
-int XmlDOMDocument::getChildCount(const char* elementName)
+int XmlDOMDocument::getElementCount(const char* elementTag)
 {
-	DOMNodeList* list = m_doc->getElementsByTagName(XMLString::transcode(elementName));
+	DOMNodeList* list = m_doc->getElementsByTagName(XMLString::transcode(elementTag));
 	return (int)list->getLength();
 }
