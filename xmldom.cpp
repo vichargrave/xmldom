@@ -20,6 +20,7 @@
    limitations under the License.
 */
 
+#include <stdio.h>
 #include "xmldom.h"
 
 class XmlDOMErrorHandler : public HandlerBase
