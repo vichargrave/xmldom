@@ -79,7 +79,7 @@ XmlDOMDocument::~XmlDOMDocument()
     if (m_doc) m_doc->release();
 }
 
-string XmlDOMDocument::getChildValue(const char* parentTag, int parentIndex, const char* childTag)
+string XmlDOMDocument::getChildValue(const char* parentTag, int parentIndex, const char* childTag, int childIndex)
 {
 	XMLCh* temp = XMLString::transcode(parentTag);
 	DOMNodeList* list = m_doc->getElementsByTagName(temp);
@@ -87,7 +87,7 @@ string XmlDOMDocument::getChildValue(const char* parentTag, int parentIndex, con
 
 	DOMElement* parent = dynamic_cast<DOMElement*>(list->item(parentIndex));
 	DOMElement* child = 
-        dynamic_cast<DOMElement*>(parent->getElementsByTagName(XMLString::transcode(childTag))->item(0));
+        dynamic_cast<DOMElement*>(parent->getElementsByTagName(XMLString::transcode(childTag))->item(childIndex));
 	string value;
 	if (child) {
 		char* temp2 = XMLString::transcode(child->getTextContent());
@@ -116,8 +116,19 @@ string XmlDOMDocument::getAttributeValue(const char* elementTag,  int elementInd
 	return value;
 }
 
-int XmlDOMDocument::getElementCount(const char* elementTag)
+int XmlDOMDocument::getRootElementCount(const char* rootElementTag)
 {
-	DOMNodeList* list = m_doc->getElementsByTagName(XMLString::transcode(elementTag));
+	DOMNodeList* list = m_doc->getElementsByTagName(XMLString::transcode(rootElementTag));
 	return (int)list->getLength();
+}
+
+int XmlDOMDocument::getChildCount(const char* parentTag, int parentIndex, const char* childTag)
+{
+	XMLCh* temp = XMLString::transcode(parentTag);
+	DOMNodeList* list = m_doc->getElementsByTagName(temp);
+	XMLString::release(&temp);
+
+	DOMElement* parent = dynamic_cast<DOMElement*>(list->item(parentIndex));
+	DOMNodeList* childList = parent->getElementsByTagName(XMLString::transcode(childTag));
+    return (int)childList->getLength(); 
 }
