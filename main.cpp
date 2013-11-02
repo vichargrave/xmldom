@@ -24,31 +24,46 @@
 #include <stdlib.h>
 #include <string>
 #include <iostream>
-#include "xmldom.h"
+#include "XmlDomDocument.h"
 
 int main(int argc, char** argv)
 {
     string value;
-    XmlDOMParser* parser = XmlDOMParser::getInstance();
-    if (parser) {
-        XmlDOMDocument* doc = new XmlDOMDocument(parser, "./bookstore.xml");
-        if (doc) {
-            for (int i = 0; i < doc->getChildCount("bookstore", 0, "book"); i++) {
-                printf("Book %d\n", i+1);
-                value = doc->getAttributeValue("book", i, "category");
-                printf("book category - %s\n", value.c_str());
-                value = doc->getChildValue("book", i, "title");
-                printf("book title    - %s\n", value.c_str());
-                value = doc->getChildValue("book", i, "author");
-                printf("book author   - %s\n", value.c_str());
-                value = doc->getChildValue("book", i, "year");
-                printf("book year     - %s\n", value.c_str());
-                value = doc->getChildValue("book", i, "price");
-                printf("book price    - %s\n", value.c_str());
-            }
-            delete doc;
+    XmlDomDocument* doc = new XmlDomDocument("./bookstore.xml");
+    if (doc) {
+        for (int i = 0; i < doc->getChildCount("bookstore", 0, "book"); i++) {
+            printf("Book %d\n", i+1);
+            value = doc->getAttributeValue("book", i, "category");
+            printf("book category - %s\n", value.c_str());
+            value = doc->getChildValue("book", i, "title");
+            printf("book title    - %s\n", value.c_str());
+            value = doc->getChildValue("book", i, "author");
+            printf("book author   - %s\n", value.c_str());
+            value = doc->getChildValue("book", i, "year");
+            printf("book year     - %s\n", value.c_str());
+            value = doc->getChildValue("book", i, "price");
+            printf("book price    - %s\n", value.c_str());
         }
-        delete parser;
+        delete doc;
     }
+
+    doc = new XmlDomDocument("./bookstore.xml");
+    if (doc) {
+        for (int i = 0; i < doc->getChildCount("bookstore", 0, "book"); i++) {
+            printf("Book %d\n", i+1);
+            value = doc->getAttributeValue("book", i, "category");
+            printf("book category - %s\n", value.c_str());
+            value = doc->getChildValue("book", i, "title");
+            printf("book title    - %s\n", value.c_str());
+            value = doc->getChildValue("book", i, "author");
+            printf("book author   - %s\n", value.c_str());
+            value = doc->getChildValue("book", i, "year");
+            printf("book year     - %s\n", value.c_str());
+            value = doc->getChildValue("book", i, "price");
+            printf("book price    - %s\n", value.c_str());
+        }
+        delete doc;
+    }
+
     exit(0);
 }

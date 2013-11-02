@@ -1,7 +1,7 @@
 CC			= g++
 CFLAGS		= -c -Wall
 LDFLAGS		= -lxerces-c
-SOURCES		= main.cpp xmldom.cpp
+SOURCES		= main.cpp XmlDomDocument.cpp
 INCLUDES	= 
 OBJECTS		= $(SOURCES:.cpp=.o)
 TARGET		= xmldom

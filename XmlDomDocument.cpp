@@ -1,5 +1,5 @@
 /*
-   xmldom.cpp
+   XmlDomDocument.cpp
 
    DOM parsing class definitions.
 
@@ -21,9 +21,9 @@
 */
 
 #include <stdio.h>
-#include "xmldom.h"
+#include "XmlDomDocument.h"
 
-class XmlDOMErrorHandler : public HandlerBase
+class XmlDomErrorHandler : public HandlerBase
 {
   public:
     void fatalError(const SAXParseException &exc) {
@@ -32,54 +32,33 @@ class XmlDOMErrorHandler : public HandlerBase
     }
 };
 
-XmlDOMParser* domParser;
+XercesDOMParser*   parser = NULL;
+ErrorHandler*      errorHandler = NULL;
 
-XmlDOMParser* XmlDOMParser::getInstance()
+void createParser()
 {
-  if (domParser  == NULL) {
-        domParser = new XmlDOMParser();
-	}
-    return domParser;
-}
-
-XmlDOMParser::XmlDOMParser() : m_parser(NULL), m_errHandler(NULL)
-{
-    XMLPlatformUtils::Initialize();
-	m_parser = new XercesDOMParser();
-    m_errHandler = (ErrorHandler*) new XmlDOMErrorHandler();
-    m_parser->setErrorHandler(m_errHandler);
-}
-
-XmlDOMParser::~XmlDOMParser()
-{
-    if (m_parser) {
-        delete m_parser;
-        delete m_errHandler;
-        XMLPlatformUtils::Terminate();
-        domParser = NULL;
+    if (!parser)
+    {
+        XMLPlatformUtils::Initialize();
+        parser = new XercesDOMParser();
+        errorHandler = (ErrorHandler*) new XmlDomErrorHandler();
+        parser->setErrorHandler(errorHandler);
     }
 }
 
-DOMDocument* XmlDOMParser::parse(const char* xmlfile)
+XmlDomDocument::XmlDomDocument(const char* xmlfile) : m_doc(NULL)
 {
-    if (m_parser == NULL) {
-        return NULL;
-    }
-    m_parser->parse(xmlfile);
-    return m_parser->adoptDocument();
+    createParser();
+    parser->parse(xmlfile);
+    m_doc = parser->adoptDocument();
 }
 
-XmlDOMDocument::XmlDOMDocument(XmlDOMParser* parser, const char* xmlfile) : m_doc(NULL)
-{
-    m_doc = parser->parse(xmlfile);
-}
-
-XmlDOMDocument::~XmlDOMDocument()
+XmlDomDocument::~XmlDomDocument()
 {
     if (m_doc) m_doc->release();
 }
 
-string XmlDOMDocument::getChildValue(const char* parentTag, int parentIndex, const char* childTag, int childIndex)
+string XmlDomDocument::getChildValue(const char* parentTag, int parentIndex, const char* childTag, int childIndex)
 {
 	XMLCh* temp = XMLString::transcode(parentTag);
 	DOMNodeList* list = m_doc->getElementsByTagName(temp);
@@ -100,7 +79,7 @@ string XmlDOMDocument::getChildValue(const char* parentTag, int parentIndex, con
 	return value;
 }
 
-string XmlDOMDocument::getAttributeValue(const char* elementTag,  int elementIndex, const char* attributeTag)
+string XmlDomDocument::getAttributeValue(const char* elementTag,  int elementIndex, const char* attributeTag)
 {
 	XMLCh* temp = XMLString::transcode(elementTag);
 	DOMNodeList* list = m_doc->getElementsByTagName(temp);
@@ -116,13 +95,13 @@ string XmlDOMDocument::getAttributeValue(const char* elementTag,  int elementInd
 	return value;
 }
 
-int XmlDOMDocument::getRootElementCount(const char* rootElementTag)
+int XmlDomDocument::getRootElementCount(const char* rootElementTag)
 {
 	DOMNodeList* list = m_doc->getElementsByTagName(XMLString::transcode(rootElementTag));
 	return (int)list->getLength();
 }
 
-int XmlDOMDocument::getChildCount(const char* parentTag, int parentIndex, const char* childTag)
+int XmlDomDocument::getChildCount(const char* parentTag, int parentIndex, const char* childTag)
 {
 	XMLCh* temp = XMLString::transcode(parentTag);
 	DOMNodeList* list = m_doc->getElementsByTagName(temp);

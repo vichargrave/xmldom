@@ -1,5 +1,5 @@
 /*
-   xmldom.cpp
+   XmlDomDocument.cpp
 
    DOM parsing class interfaces.
 
@@ -20,8 +20,8 @@
    limitations under the License.
 */
 
-#ifndef __xmldom_h__
-#define __xmldom_h__
+#ifndef __XmlDomDocument_h__
+#define __XmlDomDocument_h__
 
 #include <xercesc/parsers/XercesDOMParser.hpp>
 #include <xercesc/dom/DOM.hpp>
@@ -34,28 +34,13 @@
 using namespace std;
 using namespace xercesc;
 
-class XmlDOMParser
-{
-    XercesDOMParser* m_parser;
-    ErrorHandler*    m_errHandler;
-
-  public:
-    ~XmlDOMParser();
-
-    static XmlDOMParser* getInstance();
-    DOMDocument* parse(const char* xmlfile);
-
-  private:
-    XmlDOMParser();
-};
-
-class XmlDOMDocument
+class XmlDomDocument
 {
     DOMDocument* m_doc;
 
   public:
-    XmlDOMDocument(XmlDOMParser* parser, const char* xmlfile);
-    ~XmlDOMDocument();
+    XmlDomDocument(const char* xmlfile);
+    ~XmlDomDocument();
 
     string getChildValue(const char* parentTag, int parentIndex, const char* childTag, int childIndex=0);
     string getAttributeValue(const char* elementTag,  int elementIndex, const char* attrTag);
@@ -63,8 +48,8 @@ class XmlDOMDocument
     int getChildCount(const char* parentTag, int parentIndex, const char* childTag);
 
   private:
-    XmlDOMDocument();
-    XmlDOMDocument(const XmlDOMDocument&);
+    XmlDomDocument();
+    XmlDomDocument(const XmlDomDocument&);
 };
 
 #endif
