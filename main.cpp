@@ -26,22 +26,6 @@
 #include <iostream>
 #include "XmlDomDocument.h"
 
-// int main(int argc, char** argv)
-// {
-//     string value;
-//     XmlDomDocument* doc = new XmlDomDocument("./myxml.xml");
-//     if (doc) {
-//         value = doc->getChildValue("FooInstance", 0, "InputMTOQueueSize", 0);
-//         printf("value = %s\n", value.c_str());
-//         value = doc->getChildAttribute("InputAdapter", 0, "PrivateConfig", 1, "value");
-//         printf("value = %s\n", value.c_str());
-//         value = doc->getChildAttribute("OutputAdapter", 0, "PrivateConfig", 2, "value");
-//         printf("value = %s\n", value.c_str());
-//     }
-
-//     exit(0);
-// }
-
 int main(int argc, char** argv)
 {
     string value;
