@@ -79,19 +79,26 @@ string XmlDomDocument::getChildValue(const char* parentTag, int parentIndex, con
 	return value;
 }
 
-string XmlDomDocument::getAttributeValue(const char* elementTag,  int elementIndex, const char* attributeTag)
+string XmlDomDocument::getChildAttribute(const char* parentTag, int parentIndex, const char* childTag, int childIndex,
+                                         const char* attributeTag)
 {
-	XMLCh* temp = XMLString::transcode(elementTag);
+	XMLCh* temp = XMLString::transcode(parentTag);
 	DOMNodeList* list = m_doc->getElementsByTagName(temp);
 	XMLString::release(&temp);
 
-	DOMElement* element = dynamic_cast<DOMElement*>(list->item(elementIndex));
-	temp = XMLString::transcode(attributeTag);
-	char* temp2 = XMLString::transcode(element->getAttribute(temp));
-
-	string value = temp2;
-	XMLString::release(&temp);
-	XMLString::release(&temp2);
+	DOMElement* parent = dynamic_cast<DOMElement*>(list->item(parentIndex));
+	DOMElement* child = 
+        dynamic_cast<DOMElement*>(parent->getElementsByTagName(XMLString::transcode(childTag))->item(childIndex));
+	string value;
+	if (child) {
+        temp = XMLString::transcode(attributeTag);
+		char* temp2 = XMLString::transcode(child->getAttribute(temp));
+		value = temp2;
+        XMLString::release(&temp2);
+	}
+	else {
+		value = "";
+	}
 	return value;
 }
 

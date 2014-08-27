@@ -1,6 +1,6 @@
 CC			= g++
 CFLAGS		= -c -Wall
-LDFLAGS		= -lxerces-c
+LDFLAGS		= -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lxerces-c
 SOURCES		= main.cpp XmlDomDocument.cpp
 INCLUDES	= 
 OBJECTS		= $(SOURCES:.cpp=.o)

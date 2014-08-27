@@ -42,8 +42,9 @@ class XmlDomDocument
     XmlDomDocument(const char* xmlfile);
     ~XmlDomDocument();
 
-    string getChildValue(const char* parentTag, int parentIndex, const char* childTag, int childIndex=0);
-    string getAttributeValue(const char* elementTag,  int elementIndex, const char* attrTag);
+    string getChildValue(const char* parentTag, int parentIndex, const char* childTag, int childIndex);
+    string getChildAttribute(const char* parentTag, int parentIndex, const char* childTag, int childIndex,
+                             const char* attributeTag);
     int getRootElementCount(const char* rootElementTag);
     int getChildCount(const char* parentTag, int parentIndex, const char* childTag);
 
