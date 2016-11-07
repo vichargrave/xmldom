@@ -1,6 +1,6 @@
 # xmldom
 
-Example source code for the article [_XML Parsering With DOM in C++_](http://vichargrave.com/xml-parsing-with-dom-using-c/)
+Example code from my XML Parsing With DOM in C++ blog.
 
 ## Build
 
