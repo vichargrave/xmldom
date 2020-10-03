@@ -1,4 +1,4 @@
-CC			= g++
+CC		= g++
 CFLAGS		= -c -Wall
 LDFLAGS		= -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lxerces-c
 SOURCES		= main.cpp XmlDomDocument.cpp
@@ -9,7 +9,7 @@ TARGET		= xmldom
 all: $(SOURCES) $(TARGET)
 
 $(TARGET): $(OBJECTS) 
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
